@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undergraduate Application Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1d1091;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h1>Undergraduate Application Form</h1>
+  <form id="applicationForm">
+    
+    <h2>Personal Information</h2>
+    
+    <div class="form-group">
+      <label for="fullName">Full Name *</label>
+      <input type="text" id="fullName" name="fullName">
+      <div class="error" id="nameError"></div>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email">
+      <div class="error" id="emailError"></div>
+    </div>
+    
+    <div class="form-group">
+      <label for="dob">Date of Birth *</label>
+      <input type="date" id="dob" name="dob">
+      <div class="error" id="dobError"></div>
+    </div>
+    
+    <div class="form-group">
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone">
+      <div class="error" id="phoneError"></div>
+    </div>
+    
+    <div class="form-group">
+      <label for="address">Address *</label>
+      <textarea id="address" name="address" rows="3"></textarea>
+      <div class="error" id="addressError"></div>
+    </div>
+
+    
+    <h2>Academic Information</h2>
+    
+    <div class="form-group">
+      <label for="previousSchool">Previous School/College *</label>
+      <input type="text" id="previousSchool" name="previousSchool">
+      <div class="error" id="schoolError"></div>
+    </div>
+
+    <div>
+      <label for="resume">Upload Resume*</label>
+      <input type="file" id="resume" name="resume" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="gpa">GPA/Grade *</label>
+      <input type="text" id="gpa" name="gpa">
+      <div class="error" id="gpaError"></div>
+    </div>
+    
+    
+    <h2>Course Selection</h2>
+    
+    <div class="form-group">
+      <label for="program">Select Program *</label>
+      <select id="program" name="program">
+        <option value="">Select your program</option>
+        <option value="computerScience">Computer Science</option>
+        <option value="electronicsCommunication">Electronics and Communication</option>
+        <option value="dataScience">Data Science</option>
+        <option value="businessAdmin">Business Administration</option>
+        
+      </select>
+      <div class="error" id="programError"></div>
+    </div>
+
+    
+    <button type="submit">Submit Application</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById("applicationForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+   
+    let isValid = true;
+    document.querySelectorAll(".error").forEach(function(el) {
+      el.innerHTML = "";
+    });
+
+    
+    const fullName = document.getElementById("fullName").value.trim();
+    if (fullName === "") {
+      document.getElementById("nameError").textContent = "Full Name is required.";
+      isValid = false;
+    }
+
+   
+    const email = document.getElementById("email").value.trim();
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (email === "") {
+      document.getElementById("emailError").textContent = "Email is required.";
+      isValid = false;
+    } else if (!emailPattern.test(email)) {
+      document.getElementById("emailError").textContent = "Please enter a valid email.";
+      isValid = false;
+    }
+
+    const dob = document.getElementById("dob").value;
+    if (dob === "") {
+      document.getElementById("dobError").textContent = "Date of Birth is required.";
+      isValid = false;
+    }
+
+   
+    const phone = document.getElementById("phone").value.trim();
+    if (phone === "") {
+      document.getElementById("phoneError").textContent = "Phone Number is required.";
+      isValid = false;
+    }
+
+   
+    const address = document.getElementById("address").value.trim();
+    if (address === "") {
+      document.getElementById("addressError").textContent = "Address is required.";
+      isValid = false;
+    }
+
+    
+    const previousSchool = document.getElementById("previousSchool").value.trim();
+    if (previousSchool === "") {
+      document.getElementById("schoolError").textContent = "Previous School is required.";
+      isValid = false;
+    }
+
+   
+    const gpa = document.getElementById("gpa").value.trim();
+    if (gpa === "" || isNaN(gpa)) {
+      document.getElementById("gpaError").textContent = "Valid GPA is required.";
+      isValid = false;
+    }
+
+   
+    const program = document.getElementById("program").value;
+    if (program === "") {
+      document.getElementById("programError").textContent = "Please select a program.";
+      isValid = false;
+    }
+
+  
+    if (isValid) {
+      alert("Application submitted successfully!");
+      
+    }
+  });
+</script>
+
+</body>
+</html>
